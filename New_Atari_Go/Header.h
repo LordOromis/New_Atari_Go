@@ -22,11 +22,7 @@ public:
 	/*setzt per default: type	  '.'
 						 checked  false
 						 alive	  false  */
-	Point() {
-		this->type = '.';
-		this->checked = false;
-		this->alive = false;
-	};
+	Point();
 
 };
 

@@ -4,5 +4,5 @@
 Point::Point() {
 	this->type = '.';
 	this->checked = false;
-	this->alive = true;
+	this->alive = false;
 }

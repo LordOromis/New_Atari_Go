@@ -59,8 +59,11 @@ int main() {
 		else if (start == 2) {
 			gf.computerMove('O', depth);
 		}
+		
 		showGame(gf);
+
 		gf.update();
+
 		if (gf.gameOver('X')) {
 			showGame(gf);
 			cout << "Player O wins!";

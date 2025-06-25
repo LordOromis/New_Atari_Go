@@ -182,6 +182,7 @@
     <ClCompile Include="computerMove.cpp" />
     <ClCompile Include="GameField.cpp" />
     <ClCompile Include="main_konsole.cpp" />
+    <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
