@@ -31,8 +31,10 @@ void GameField::computerMove(char type, int depth) {
 	//makeRandomMove(type);
 
 	//Speichert alle möglichen Züge und deren Scores
+	vector<vector<Point>> savedListOfPoints = listOfPoints;
 	vector<simulation> possibleMoves;
 	int index = 0;
+
 
 
 	//Jetzt wird für jeden möglichen Zug depth-Anzahl Simulationen durchgeführt
@@ -41,13 +43,12 @@ void GameField::computerMove(char type, int depth) {
 		for (int j = 0; j < size; j++) {
 			if (checkIfValidMove(i, j)) {
 				possibleMoves.push_back(simulation(i, j));
-				index++;
 
 				int iteration = 0;
 
-				listOfPoints[i][j].type = type;
-
 				while (iteration < depth) {					//Ausführen der Simulationen, solange noch nicht die gewünschte Tiefe erreicht ist
+					listOfPoints = savedListOfPoints;
+					listOfPoints[i][j].type = type;
 
 					while (true) {							//Hauptschleife für Weiterspielen ohne Spielereingabe
 
@@ -55,13 +56,13 @@ void GameField::computerMove(char type, int depth) {
 
 						if (type == 'O') {					//Überprüfen, ob jemand gewonnen hat
 							if (gameOver('O')) {			
-								possibleMoves[index].score++;					//Wenn der Computer gewinnt, Score erhöhen
+								possibleMoves[index].score += 1;					//Wenn der Computer gewinnt, Score erhöhen
 								break;
 							}
 
 							makeRandomMove('X');			//Anschließend Zug für andere Farbe machen
 						}
-						else if (type == 'X') {
+						if (type == 'X') {
 							if (gameOver('O')) {			
 								break;
 							}
@@ -73,13 +74,13 @@ void GameField::computerMove(char type, int depth) {
 
 						if (type == 'O') {					
 							if (gameOver('O')) {			
-								possibleMoves[index].score++;					
+								possibleMoves[index].score += 1;					
 								break;
 							}
 
 							makeRandomMove('O');			//Hier Zug für Computer machen
 						}
-						else if (type == 'X') {
+						if (type == 'X') {
 							if (gameOver('O')) {			
 								break;
 							}
@@ -91,6 +92,9 @@ void GameField::computerMove(char type, int depth) {
 
 					iteration++;
 				}
+
+				listOfPoints = savedListOfPoints;
+				index++;
 			}
 		}
 	}
@@ -103,6 +107,7 @@ void GameField::computerMove(char type, int depth) {
 		swap(possibleMoves[0], possibleMoves[i]);
 		}
 	}
+	
 
 	listOfPoints[possibleMoves[0].x][possibleMoves[0].y].type = type;		//Setze den Zug mit dem höchsten Score auf das Spielfeld
 
